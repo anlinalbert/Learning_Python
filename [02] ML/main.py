@@ -32,4 +32,3 @@ Matplotlib/Seaborn: * Create a line plot showing the Sales_USD over the days of 
 
 Add a title ("Weekly Sales Trend") and label your axes.
 """
-
