@@ -21,8 +21,7 @@ Deployment (Stretch Goal): Host the finished API on a platform like Render, Rail
 
 from fastapi import FastAPI, HTTPException, Depends
 from sqlalchemy import create_engine, Column, Integer, String
-from sqlalchemy.orm import sessionmaker, Session
-from sqlalchemy.orm import declarative_base
+from sqlalchemy.orm import sessionmaker, Session, declarative_base
 
 from pydantic import BaseModel, ConfigDict
 from typing import Optional, List
@@ -84,7 +83,7 @@ def get_book(book_id: int, db: Session = Depends(get_db)):
 def add_book(book: CreateBook, db: Session = Depends(get_db)):
 
     # Create book
-    new_book = Book(**book.dict())
+    new_book = Book(**book.model_dump())
     db.add(new_book)
     db.commit()
     db.refresh(new_book)
@@ -96,7 +95,7 @@ def update_book(book_id: int, book: CreateBook, db: Session = Depends(get_db)):
     if not updated_book:
         raise HTTPException(status_code=404, detail="Book not found")
 
-    for field, value in book.dict().items():
+    for field, value in book.model_dump().items():
         setattr(updated_book, field, value)
 
     db.commit()
