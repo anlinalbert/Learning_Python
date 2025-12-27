@@ -65,8 +65,6 @@ def get_db():
     finally:
         db.close()
 
-get_db()
-
 # Endpoints
 @app.get("/")
 def read_root():
