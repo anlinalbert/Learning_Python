@@ -24,3 +24,8 @@ async def create_ticket(ticket: CreateTicket, db: Session = Depends(get_db)):
 @app.get("/tickets", response_model=List[UserResponse])
 async def get_tickets(db: Session = Depends(get_db)):
     return db.query(Ticket).all()
+
+@app.delete("/clear_db")
+async def clear_db(db: Session = Depends(get_db)):
+    db.query(Ticket).delete()
+    db.commit()

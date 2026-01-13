@@ -11,6 +11,7 @@ class Ticket(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     title = Column(String)
     description = Column(String)
+    priority = Column(String)
 
 Base.metadata.create_all(engine)
 
